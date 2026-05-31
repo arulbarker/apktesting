@@ -16,7 +16,7 @@ import org.junit.Assert.assertTrue
 import org.junit.Test
 
 class CheckoutUseCaseTest {
-    private val fixedClock = { 1748736000000L }  // 2026-06-01 UTC
+    private val fixedClock = { 1780272000000L }  // 2026-06-01 00:00 UTC
 
     private fun item(variantId: Long, qty: Int, price: Long, available: Int = 100) =
         CartItem(variantId, "Produk", "Var", price, qty, available)

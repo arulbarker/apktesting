@@ -22,7 +22,7 @@ object DatabaseModule {
     @Singleton
     fun provideDatabase(@ApplicationContext ctx: Context): KasirDatabase =
         Room.databaseBuilder(ctx, KasirDatabase::class.java, KasirDatabase.DB_NAME)
-            .fallbackToDestructiveMigrationOnDowngrade(true)
+            .fallbackToDestructiveMigrationOnDowngrade()
             .build()
 
     @Provides

@@ -9,8 +9,8 @@ import androidx.compose.ui.Modifier
 fun CategoryChip(
     label: String,
     selected: Boolean,
-    onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    onClick: () -> Unit,
 ) {
     FilterChip(
         selected = selected,

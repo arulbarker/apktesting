@@ -1,5 +1,6 @@
 plugins {
   alias(libs.plugins.android.application)
+  alias(libs.plugins.kotlin.android)
   alias(libs.plugins.compose.compiler)
   alias(libs.plugins.kotlin.serialization)
   alias(libs.plugins.ksp)
@@ -103,8 +104,8 @@ dependencies {
   implementation(libs.hilt.android)
   ksp(libs.hilt.compiler)
   implementation(libs.hilt.navigation.compose)
-  androidTestImplementation("com.google.dagger:hilt-android-testing:2.57.2")
-  kspAndroidTest("com.google.dagger:hilt-android-compiler:2.57.2")
+  androidTestImplementation("com.google.dagger:hilt-android-testing:2.52")
+  kspAndroidTest("com.google.dagger:hilt-android-compiler:2.52")
 
   // DataStore
   implementation(libs.androidx.datastore.preferences)

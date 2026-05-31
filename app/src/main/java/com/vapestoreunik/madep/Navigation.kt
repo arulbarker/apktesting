@@ -4,7 +4,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
@@ -28,15 +27,20 @@ fun MainNavigation(rootViewModel: RootViewModel = hiltViewModel()) {
     val initial: NavKey = if (!rootState.setupCompleted) SetupWizard else PinLogin
     val backStack = rememberNavBackStack(initial)
 
+    fun clearAndPush(key: NavKey) {
+        while (backStack.isNotEmpty()) backStack.removeLastOrNull()
+        backStack.add(key)
+    }
+
     NavDisplay(
         backStack = backStack,
         onBack = { backStack.removeLastOrNull() },
         entryProvider = entryProvider {
             entry<SetupWizard> {
-                SetupWizardScreen(onComplete = { backStack.clearAndPush(PinLogin) })
+                SetupWizardScreen(onComplete = { clearAndPush(PinLogin) })
             }
             entry<PinLogin> {
-                PinLoginScreen(onUnlock = { backStack.clearAndPush(MainScaffold) })
+                PinLoginScreen(onUnlock = { clearAndPush(MainScaffold) })
             }
             entry<MainScaffold> {
                 MainScaffoldScreen(
@@ -59,7 +63,7 @@ fun MainNavigation(rootViewModel: RootViewModel = hiltViewModel()) {
             entry<Receipt> { key ->
                 ReceiptScreen(
                     transactionId = key.transactionId,
-                    onNewTransaction = { backStack.clearAndPush(MainScaffold) },
+                    onNewTransaction = { clearAndPush(MainScaffold) },
                     onBack = { backStack.removeLastOrNull() },
                 )
             }
@@ -81,7 +85,7 @@ fun MainNavigation(rootViewModel: RootViewModel = hiltViewModel()) {
                     onOpenCategoryManage = { backStack.add(CategoryManage) },
                     onOpenReports = { backStack.add(Reports) },
                     onOpenBackup = { backStack.add(BackupRestore) },
-                    onLock = { backStack.clearAndPush(PinLogin) },
+                    onLock = { clearAndPush(PinLogin) },
                     onBack = { backStack.removeLastOrNull() },
                 )
             }
@@ -95,9 +99,4 @@ fun MainNavigation(rootViewModel: RootViewModel = hiltViewModel()) {
             }
         },
     )
-}
-
-internal fun NavBackStack.clearAndPush(key: NavKey) {
-    while (isNotEmpty()) removeLastOrNull()
-    add(key)
 }
