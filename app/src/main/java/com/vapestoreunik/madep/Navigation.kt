@@ -22,6 +22,7 @@ import androidx.navigation3.ui.NavDisplay
 import com.vapestoreunik.madep.ui.auth.ChangePinScreen
 import com.vapestoreunik.madep.ui.auth.PinLoginScreen
 import com.vapestoreunik.madep.ui.categories.CategoryManageScreen
+import com.vapestoreunik.madep.ui.checkout.CheckoutScreen
 import com.vapestoreunik.madep.ui.main.MainScaffoldScreen
 import com.vapestoreunik.madep.ui.products.ProductFormScreen
 import com.vapestoreunik.madep.ui.setup.SetupWizardScreen
@@ -51,7 +52,15 @@ fun MainNavigation(rootViewModel: RootViewModel = hiltViewModel()) {
                     onOpenReports = { backStack.add(Reports) },
                 )
             }
-            entry<Checkout> { PhaseStub("Checkout — Phase 7", backStack) }
+            entry<Checkout> {
+                CheckoutScreen(
+                    onSuccess = { id ->
+                        backStack.removeLastOrNull()
+                        backStack.add(Receipt(id))
+                    },
+                    onBack = { backStack.removeLastOrNull() },
+                )
+            }
             entry<Receipt> { PhaseStub("Receipt — Phase 8", backStack) }
             entry<ProductForm> { key ->
                 ProductFormScreen(
