@@ -56,5 +56,8 @@ memory/
 # Claude Code local settings
 .claude/
 
+# Kotlin compiler session files (transient, ignore)
+.kotlin/
+
 # Screenshots (root level)
 /screenshot-*.png
