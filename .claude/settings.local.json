@@ -1,9 +1,0 @@
-{
-  "permissions": {
-    "allow": [
-      "Bash(git add *)",
-      "Bash(git commit -m 'feat\\(phase-7\\): POS + Checkout screens with variant picker *)",
-      "Bash(git push *)"
-    ]
-  }
-}

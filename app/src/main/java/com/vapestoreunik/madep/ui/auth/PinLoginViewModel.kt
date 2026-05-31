@@ -36,12 +36,19 @@ class PinLoginViewModel @Inject constructor(
         if (_state.value.lockoutSeconds > 0) return
         val newPin = (_state.value.pin + d).take(6)
         _state.value = _state.value.copy(pin = newPin, error = null)
-        if (newPin.length >= 4) tryVerify(newPin)
+        // Auto-submit hanya saat max length (6) — untuk PIN < 6, user tap tombol OK
+        if (newPin.length == 6) tryVerify(newPin)
     }
 
     fun backspace() {
         if (_state.value.lockoutSeconds > 0) return
         _state.value = _state.value.copy(pin = _state.value.pin.dropLast(1), error = null)
+    }
+
+    fun submit() {
+        if (_state.value.lockoutSeconds > 0) return
+        val pin = _state.value.pin
+        if (pin.length in 4..6) tryVerify(pin)
     }
 
     private fun tryVerify(pin: String) = viewModelScope.launch {

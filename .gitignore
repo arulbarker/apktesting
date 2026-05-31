@@ -53,5 +53,8 @@ google-services.json
 # Memory directory (claude code)
 memory/
 
+# Claude Code local settings
+.claude/
+
 # Screenshots (root level)
 /screenshot-*.png

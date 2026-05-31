@@ -12,6 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -70,5 +71,14 @@ fun PinLoginScreen(
             enabled = state.lockoutSeconds == 0,
             modifier = Modifier.widthIn(max = 320.dp),
         )
+        Spacer(Modifier.height(16.dp))
+        // OK button: aktif kalau pin >= 4 digit dan tidak lockout
+        Button(
+            onClick = vm::submit,
+            enabled = state.pin.length in 4..6 && state.lockoutSeconds == 0,
+            modifier = Modifier.widthIn(max = 320.dp).padding(horizontal = 16.dp),
+        ) {
+            Text("OK")
+        }
     }
 }
