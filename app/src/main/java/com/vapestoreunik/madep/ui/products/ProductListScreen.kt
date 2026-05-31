@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vapestoreunik.madep.core.ui.components.CategoryChip
 import com.vapestoreunik.madep.core.ui.components.EmptyState
+import com.vapestoreunik.madep.core.ui.components.ProductCard
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -74,26 +75,16 @@ fun ProductListScreen(
             } else {
                 LazyVerticalGrid(
                     columns = GridCells.Adaptive(160.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     items(state.products, key = { it.id }) { p ->
-                        Card(onClick = { onOpenForm(p.id) }) {
-                            Column(Modifier.padding(12.dp)) {
-                                Text(
-                                    p.name,
-                                    style = MaterialTheme.typography.titleSmall,
-                                    maxLines = 2,
-                                )
-                                p.brand?.let {
-                                    Text(
-                                        it,
-                                        style = MaterialTheme.typography.bodySmall,
-                                        color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                    )
-                                }
-                            }
-                        }
+                        ProductCard(
+                            name = p.name,
+                            brand = p.brand,
+                            priceLabel = "Ubah",
+                            onClick = { onOpenForm(p.id) },
+                        )
                     }
                 }
             }
@@ -101,6 +92,8 @@ fun ProductListScreen(
         FloatingActionButton(
             onClick = { onOpenForm(null) },
             modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp),
+            containerColor = MaterialTheme.colorScheme.tertiary,
+            contentColor = MaterialTheme.colorScheme.onTertiary,
         ) {
             Icon(Icons.Default.Add, "Tambah")
         }

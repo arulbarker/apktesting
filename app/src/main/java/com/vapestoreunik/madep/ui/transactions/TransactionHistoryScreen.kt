@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,6 +27,9 @@ import com.vapestoreunik.madep.core.common.DateFormatter
 import com.vapestoreunik.madep.core.common.RupiahFormatter
 import com.vapestoreunik.madep.core.ui.components.CategoryChip
 import com.vapestoreunik.madep.core.ui.components.EmptyState
+import com.vapestoreunik.madep.core.ui.components.MetricCard
+import com.vapestoreunik.madep.core.ui.components.MetricCardVariant
+import com.vapestoreunik.madep.core.ui.components.SectionHeader
 
 @Composable
 fun TransactionHistoryScreen(
@@ -36,19 +40,15 @@ fun TransactionHistoryScreen(
     val state by vm.state.collectAsStateWithLifecycle()
 
     Column(modifier.fillMaxSize().padding(16.dp)) {
-        Card {
-            Column(Modifier.padding(12.dp)) {
-                Text(
-                    "${state.count} transaksi • ${RupiahFormatter.format(state.omzet)}",
-                    style = MaterialTheme.typography.titleMedium,
-                )
-                Text(
-                    "${DateFormatter.formatDisplay(state.from)} - ${DateFormatter.formatDisplay(state.to)}",
-                    style = MaterialTheme.typography.bodySmall,
-                )
-            }
-        }
-        Spacer(Modifier.height(8.dp))
+        MetricCard(
+            label = "Periode ${DateFormatter.formatDisplay(state.from)} - ${DateFormatter.formatDisplay(state.to)}",
+            value = RupiahFormatter.format(state.omzet),
+            subtitle = "${state.count} transaksi",
+            variant = MetricCardVariant.Primary,
+            modifier = Modifier.fillMaxWidth(),
+        )
+        Spacer(Modifier.height(16.dp))
+        SectionHeader(title = "Filter")
         androidx.compose.foundation.lazy.LazyRow(
             horizontalArrangement = Arrangement.spacedBy(8.dp),
         ) {

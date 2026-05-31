@@ -41,6 +41,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.vapestoreunik.madep.core.ui.components.SectionHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -68,6 +69,9 @@ fun SettingsScreen(
         },
     ) { p ->
         Column(Modifier.padding(p).verticalScroll(rememberScrollState())) {
+            Column(Modifier.padding(horizontal = 16.dp)) {
+                SectionHeader(title = "Toko")
+            }
             NavItem(
                 "Profil Toko",
                 state.storeName.ifBlank { "Belum diatur" },
@@ -116,6 +120,9 @@ fun SettingsScreen(
                 TextButton(onClick = { vm.setFooter(footerText) }) { Text("Simpan") }
             }
             HorizontalDivider()
+            Column(Modifier.padding(horizontal = 16.dp)) {
+                SectionHeader(title = "Keamanan & Data")
+            }
             NavItem("Ubah PIN", null, Icons.Default.Lock, onOpenChangePin)
             HorizontalDivider()
             NavItem("Kelola Kategori", null, Icons.Default.Category, onOpenCategoryManage)
@@ -124,6 +131,9 @@ fun SettingsScreen(
             HorizontalDivider()
             NavItem("Backup & Restore", null, Icons.Default.Backup, onOpenBackup)
             HorizontalDivider()
+            Column(Modifier.padding(horizontal = 16.dp)) {
+                SectionHeader(title = "Sesi")
+            }
             NavItem("Kunci", "Kembali ke layar PIN", Icons.Default.Lock, onLock)
         }
     }

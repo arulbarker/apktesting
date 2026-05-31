@@ -13,16 +13,16 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Backup
 import androidx.compose.material.icons.filled.Restore
 import androidx.compose.material3.AlertDialog
-import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.material3.TopAppBar
+import com.vapestoreunik.madep.core.ui.components.PrimaryButton
+import com.vapestoreunik.madep.core.ui.components.SecondaryButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
@@ -60,24 +60,20 @@ fun BackupRestoreScreen(
             Modifier.padding(p).padding(16.dp),
             verticalArrangement = Arrangement.spacedBy(16.dp),
         ) {
-            Button(
+            PrimaryButton(
+                text = "Export Database",
+                icon = Icons.Default.Backup,
                 onClick = {
                     exportLauncher.launch("kasir-backup-${System.currentTimeMillis()}.db")
                 },
                 modifier = Modifier.fillMaxWidth(),
-            ) {
-                Icon(Icons.Default.Backup, null)
-                Spacer(Modifier.width(8.dp))
-                Text("Export Database (.db)")
-            }
-            OutlinedButton(
+            )
+            SecondaryButton(
+                text = "Import Database",
+                icon = Icons.Default.Restore,
                 onClick = { importLauncher.launch(arrayOf("*/*")) },
                 modifier = Modifier.fillMaxWidth(),
-            ) {
-                Icon(Icons.Default.Restore, null)
-                Spacer(Modifier.width(8.dp))
-                Text("Import Database (.db)")
-            }
+            )
             Text(
                 "Peringatan: Import akan MENGGANTI semua data saat ini. Backup dulu sebelum import.",
                 style = MaterialTheme.typography.bodySmall,

@@ -32,6 +32,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vapestoreunik.madep.core.common.DateFormatter
 import com.vapestoreunik.madep.core.common.RupiahFormatter
+import com.vapestoreunik.madep.core.ui.components.PrimaryButton
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -116,9 +117,11 @@ private fun ReceiptBody(
         HorizontalDivider(Modifier.padding(vertical = 4.dp))
         d.footer.lines().forEach { Text(it, style = MaterialTheme.typography.bodySmall) }
         Spacer(Modifier.height(16.dp))
-        Button(onClick = onNewTransaction, modifier = Modifier.fillMaxWidth()) {
-            Text("Transaksi Baru")
-        }
+        PrimaryButton(
+            text = "Transaksi Baru",
+            onClick = onNewTransaction,
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }
 

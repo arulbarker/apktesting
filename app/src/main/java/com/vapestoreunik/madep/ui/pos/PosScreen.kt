@@ -45,6 +45,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vapestoreunik.madep.core.common.RupiahFormatter
 import com.vapestoreunik.madep.core.ui.components.CategoryChip
 import com.vapestoreunik.madep.core.ui.components.EmptyState
+import com.vapestoreunik.madep.core.ui.components.PrimaryButton
+import com.vapestoreunik.madep.core.ui.components.ProductCard
 import com.vapestoreunik.madep.core.ui.components.QtyStepper
 import com.vapestoreunik.madep.domain.model.Cart
 
@@ -87,25 +89,18 @@ fun PosScreen(
                 )
             } else {
                 LazyVerticalGrid(
-                    columns = GridCells.Adaptive(140.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp),
+                    columns = GridCells.Adaptive(160.dp),
+                    verticalArrangement = Arrangement.spacedBy(12.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
                 ) {
                     items(state.products, key = { it.id }) { p ->
-                        Card(onClick = { vm.onProductTap(p) }) {
-                            Column(Modifier.padding(12.dp)) {
-                                Text(
-                                    p.name,
-                                    style = MaterialTheme.typography.titleSmall,
-                                    maxLines = 2,
-                                )
-                                Text(
-                                    if (p.hasVariants) "Pilih varian" else "Tap untuk tambah",
-                                    style = MaterialTheme.typography.bodySmall,
-                                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                                )
-                            }
-                        }
+                        ProductCard(
+                            name = p.name,
+                            brand = p.brand,
+                            priceLabel = if (p.hasVariants) "Pilih varian" else "Tap untuk tambah",
+                            hint = null,
+                            onClick = { vm.onProductTap(p) },
+                        )
                     }
                 }
             }
@@ -115,6 +110,8 @@ fun PosScreen(
             ExtendedFloatingActionButton(
                 onClick = { showCart = true },
                 modifier = Modifier.align(Alignment.BottomEnd).padding(16.dp),
+                containerColor = MaterialTheme.colorScheme.tertiary,
+                contentColor = MaterialTheme.colorScheme.onTertiary,
             ) {
                 Icon(Icons.Default.ShoppingCart, null)
                 Spacer(Modifier.width(8.dp))
@@ -188,12 +185,11 @@ private fun CartSheet(
             style = MaterialTheme.typography.titleMedium,
         )
         Spacer(Modifier.height(8.dp))
-        Button(
+        PrimaryButton(
+            text = "Bayar",
             onClick = onCheckout,
-            modifier = Modifier.fillMaxWidth(),
             enabled = cart.items.isNotEmpty(),
-        ) {
-            Text("Bayar")
-        }
+            modifier = Modifier.fillMaxWidth(),
+        )
     }
 }

@@ -32,6 +32,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vapestoreunik.madep.core.common.DateFormatter
 import com.vapestoreunik.madep.core.common.RupiahFormatter
+import com.vapestoreunik.madep.core.ui.components.MetricCard
+import com.vapestoreunik.madep.core.ui.components.MetricCardVariant
+import com.vapestoreunik.madep.core.ui.components.SectionHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -65,31 +68,18 @@ fun ReportsScreen(
                 )
             }
             item {
-                Card {
-                    Column(
-                        Modifier.padding(16.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
-                    ) {
-                        Text("Ringkasan", style = MaterialTheme.typography.titleMedium)
-                        Text(
-                            RupiahFormatter.format(state.omzet),
-                            style = MaterialTheme.typography.headlineMedium,
-                        )
-                        Text(
-                            "${state.count} transaksi • ${state.itemsSold} item terjual",
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                        Text(
-                            "Rata-rata per transaksi: ${RupiahFormatter.format(state.avgTicket)}",
-                            style = MaterialTheme.typography.bodyMedium,
-                        )
-                    }
-                }
+                MetricCard(
+                    label = "Omzet ${DateFormatter.formatDisplay(state.dateMillis)}",
+                    value = RupiahFormatter.format(state.omzet),
+                    subtitle = "${state.count} transaksi • ${state.itemsSold} item terjual\nRata-rata: ${RupiahFormatter.format(state.avgTicket)}",
+                    variant = MetricCardVariant.Primary,
+                    modifier = Modifier.fillMaxWidth(),
+                )
             }
+            item { SectionHeader(title = "Pembayaran") }
             item {
                 Card {
                     Column(Modifier.padding(16.dp)) {
-                        Text("Pembayaran", style = MaterialTheme.typography.titleSmall)
                         if (state.paymentBreakdown.isEmpty()) {
                             Text(
                                 "Belum ada transaksi",
@@ -109,10 +99,10 @@ fun ReportsScreen(
                     }
                 }
             }
+            item { SectionHeader(title = "Top 10 Produk") }
             item {
                 Card {
                     Column(Modifier.padding(16.dp)) {
-                        Text("Top 10 Produk", style = MaterialTheme.typography.titleSmall)
                         if (state.topProducts.isEmpty()) {
                             Text(
                                 "Belum ada penjualan",
