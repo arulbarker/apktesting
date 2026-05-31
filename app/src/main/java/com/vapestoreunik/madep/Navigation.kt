@@ -21,7 +21,9 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.vapestoreunik.madep.ui.auth.ChangePinScreen
 import com.vapestoreunik.madep.ui.auth.PinLoginScreen
+import com.vapestoreunik.madep.ui.categories.CategoryManageScreen
 import com.vapestoreunik.madep.ui.main.MainScaffoldScreen
+import com.vapestoreunik.madep.ui.products.ProductFormScreen
 import com.vapestoreunik.madep.ui.setup.SetupWizardScreen
 
 @Composable
@@ -51,8 +53,16 @@ fun MainNavigation(rootViewModel: RootViewModel = hiltViewModel()) {
             }
             entry<Checkout> { PhaseStub("Checkout — Phase 7", backStack) }
             entry<Receipt> { PhaseStub("Receipt — Phase 8", backStack) }
-            entry<ProductForm> { PhaseStub("ProductForm — Phase 6", backStack) }
-            entry<CategoryManage> { PhaseStub("CategoryManage — Phase 6", backStack) }
+            entry<ProductForm> { key ->
+                ProductFormScreen(
+                    productId = key.productId,
+                    onSaved = { backStack.removeLastOrNull() },
+                    onBack = { backStack.removeLastOrNull() },
+                )
+            }
+            entry<CategoryManage> {
+                CategoryManageScreen(onBack = { backStack.removeLastOrNull() })
+            }
             entry<Reports> { PhaseStub("Reports — Phase 9", backStack) }
             entry<Settings> { PhaseStub("Settings — Phase 10", backStack) }
             entry<StoreProfile> { PhaseStub("StoreProfile — Phase 10", backStack) }

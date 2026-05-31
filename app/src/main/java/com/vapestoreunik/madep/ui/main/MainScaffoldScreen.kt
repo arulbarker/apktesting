@@ -28,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import com.vapestoreunik.madep.ui.dashboard.DashboardScreen
+import com.vapestoreunik.madep.ui.products.ProductListScreen
 
 internal enum class Tab(val label: String, val icon: ImageVector) {
     Beranda("Beranda", Icons.Default.Home),
@@ -76,7 +77,10 @@ fun MainScaffoldScreen(
                 modifier = Modifier.padding(padding),
             )
             Tab.Kasir -> PlaceholderTab("Tab Kasir akan diisi di Phase 7", Modifier.padding(padding))
-            Tab.Produk -> PlaceholderTab("Tab Produk akan diisi di Phase 6", Modifier.padding(padding))
+            Tab.Produk -> ProductListScreen(
+                onOpenForm = onOpenProductForm,
+                modifier = Modifier.padding(padding),
+            )
             Tab.Riwayat -> PlaceholderTab("Tab Riwayat akan diisi di Phase 8", Modifier.padding(padding))
         }
     }
