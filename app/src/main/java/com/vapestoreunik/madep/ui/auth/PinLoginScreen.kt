@@ -24,6 +24,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.vapestoreunik.madep.core.ui.components.BrandHeader
 import com.vapestoreunik.madep.core.ui.components.NumPad
 
 @Composable
@@ -39,8 +40,14 @@ fun PinLoginScreen(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center,
     ) {
-        Text("Masukkan PIN", style = MaterialTheme.typography.titleLarge)
-        Spacer(Modifier.height(24.dp))
+        BrandHeader(showTagline = false)
+        Spacer(Modifier.height(32.dp))
+        Text(
+            "Masukkan PIN",
+            style = MaterialTheme.typography.titleMedium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+        Spacer(Modifier.height(16.dp))
         Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
             repeat(6) { i ->
                 val filled = i < state.pin.length

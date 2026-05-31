@@ -26,6 +26,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.vapestoreunik.madep.core.ui.components.BrandHeader
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -41,6 +42,7 @@ fun SetupWizardScreen(
             Modifier.padding(padding).padding(16.dp).fillMaxSize(),
             verticalArrangement = Arrangement.spacedBy(12.dp),
         ) {
+            BrandHeader(modifier = Modifier.fillMaxWidth().padding(vertical = 24.dp))
             LinearProgressIndicator(
                 progress = { (state.step + 1) / 3f },
                 modifier = Modifier.fillMaxWidth(),

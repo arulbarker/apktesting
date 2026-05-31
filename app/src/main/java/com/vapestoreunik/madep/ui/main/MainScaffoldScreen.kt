@@ -27,6 +27,8 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import com.vapestoreunik.madep.ui.dashboard.DashboardScreen
 import com.vapestoreunik.madep.ui.pos.PosScreen
 import com.vapestoreunik.madep.ui.products.ProductListScreen
@@ -52,7 +54,26 @@ fun MainScaffoldScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Kasir Vapestore") },
+                title = {
+                    androidx.compose.foundation.layout.Row(
+                        verticalAlignment = androidx.compose.ui.Alignment.CenterVertically,
+                    ) {
+                        Text(
+                            "KASIR",
+                            style = MaterialTheme.typography.titleLarge.copy(
+                                fontWeight = FontWeight.Bold,
+                                letterSpacing = 1.sp,
+                            ),
+                        )
+                        Text(
+                            " · VAPESTORE",
+                            style = MaterialTheme.typography.labelMedium.copy(
+                                letterSpacing = 2.sp,
+                            ),
+                            color = MaterialTheme.colorScheme.secondary,
+                        )
+                    }
+                },
                 actions = {
                     IconButton(onClick = onOpenSettings) {
                         Icon(Icons.Default.Settings, contentDescription = "Pengaturan")

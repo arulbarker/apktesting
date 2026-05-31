@@ -52,19 +52,36 @@ fun DashboardScreen(
             )
         }
         item {
-            Card {
-                Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                    Text("Hari Ini", style = MaterialTheme.typography.titleMedium)
+            Card(
+                colors = CardDefaults.cardColors(
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
+                ),
+                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            ) {
+                Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                    Text(
+                        "OMZET HARI INI",
+                        style = MaterialTheme.typography.labelMedium,
+                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f),
+                    )
                     Text(
                         RupiahFormatter.format(state.today.omzet),
-                        style = MaterialTheme.typography.headlineMedium,
+                        style = MaterialTheme.typography.displayMedium,
                     )
+                    Spacer(Modifier.height(4.dp))
                     Text(
                         "${state.today.transactionCount} transaksi • Rata-rata ${RupiahFormatter.format(state.today.averageTicket)}",
                         style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f),
                     )
-                    TextButton(onClick = onOpenReports) { Text("Lihat Laporan Detail →") }
+                    Spacer(Modifier.height(8.dp))
+                    TextButton(
+                        onClick = onOpenReports,
+                        colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
+                            contentColor = MaterialTheme.colorScheme.tertiary,
+                        ),
+                    ) { Text("Lihat Laporan Detail →") }
                 }
             }
         }
