@@ -1,10 +1,15 @@
 package com.vapestoreunik.madep
 
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.safeDrawingPadding
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -16,6 +21,7 @@ import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
 import com.vapestoreunik.madep.ui.auth.ChangePinScreen
 import com.vapestoreunik.madep.ui.auth.PinLoginScreen
+import com.vapestoreunik.madep.ui.main.MainScaffoldScreen
 import com.vapestoreunik.madep.ui.setup.SetupWizardScreen
 
 @Composable
@@ -35,12 +41,22 @@ fun MainNavigation(rootViewModel: RootViewModel = hiltViewModel()) {
                 PinLoginScreen(onUnlock = { backStack.clearAndPush(MainScaffold) })
             }
             entry<MainScaffold> {
-                // Placeholder — diisi di Phase 5 (MainScaffoldScreen)
-                Text(
-                    "Phase 4 OK — Main Scaffold akan diisi di Phase 5",
-                    modifier = Modifier.safeDrawingPadding().padding(16.dp),
+                MainScaffoldScreen(
+                    onOpenSettings = { backStack.add(Settings) },
+                    onOpenCheckout = { backStack.add(Checkout) },
+                    onOpenProductForm = { id -> backStack.add(ProductForm(id)) },
+                    onOpenReceipt = { id -> backStack.add(Receipt(id)) },
+                    onOpenReports = { backStack.add(Reports) },
                 )
             }
+            entry<Checkout> { PhaseStub("Checkout — Phase 7", backStack) }
+            entry<Receipt> { PhaseStub("Receipt — Phase 8", backStack) }
+            entry<ProductForm> { PhaseStub("ProductForm — Phase 6", backStack) }
+            entry<CategoryManage> { PhaseStub("CategoryManage — Phase 6", backStack) }
+            entry<Reports> { PhaseStub("Reports — Phase 9", backStack) }
+            entry<Settings> { PhaseStub("Settings — Phase 10", backStack) }
+            entry<StoreProfile> { PhaseStub("StoreProfile — Phase 10", backStack) }
+            entry<BackupRestore> { PhaseStub("BackupRestore — Phase 10", backStack) }
             entry<ChangePin> {
                 ChangePinScreen(
                     onDone = { backStack.removeLastOrNull() },
@@ -49,6 +65,22 @@ fun MainNavigation(rootViewModel: RootViewModel = hiltViewModel()) {
             }
         },
     )
+}
+
+@Composable
+private fun PhaseStub(text: String, backStack: NavBackStack) {
+    Column(
+        modifier = Modifier.fillMaxSize().safeDrawingPadding().padding(16.dp),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text(text, style = MaterialTheme.typography.titleMedium)
+        Text(
+            "Tap back untuk kembali",
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        )
+    }
 }
 
 internal fun NavBackStack.clearAndPush(key: NavKey) {
