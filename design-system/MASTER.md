@@ -1,66 +1,100 @@
-# Kasir Vapestore — Design System Master
+# Kasir Vapestore — Brand Master
 
-> **Source of truth** untuk semua design decisions. Page-specific overrides bisa ditaruh di `pages/<name>.md`.
+> **Source of truth** untuk semua design decisions. Page-specific overrides di `pages/<name>.md`.
 
 ## Brand Identity
 
-**Tagline (internal)**: "Premium vape boutique experience for cashier"
+**Tagline (internal)**: "Black on gold — premium vape boutique POS"
 
-**Positioning**: Bukan POS generik — ini specifically untuk toko vape modern di Indonesia. Vibe: premium, edgy, terpercaya. Bukan murahan, bukan klinik, bukan supermarket.
+**Positioning**: Bukan POS generik. Aplikasi kasir untuk toko vape premium di Indonesia. Vibe: Rolex × Hublot × streetwear-luxe — onyx pekat, aksen emas, kerja diam-diam mahal.
 
-**Personality**: bold, modern, geometric, sedikit nightlife/edgy tapi tetap profesional.
+**Personality**: bold, premium, minimalis, sedikit edgy. Bukan klinik, bukan supermarket, bukan toko serba ada. Kasir merasa sedang menjalankan butik perhiasan.
+
+**Visual signature**: lingkaran onyx dengan ring emas + huruf "K" emas di tengah. Wordmark "KASIR" hitam tebal, "V A P E S T O R E" emas dengan letterspacing lebar.
 
 ## Color Palette
 
-### Light Mode (default — cashier daytime use)
+### Light Mode (default — cashier daytime)
+
 ```
-Primary       #0F172A  slate-900    app bar, headings, primary text
-PrimaryContainer #E2E8F0 slate-200   subtle highlight container
-Secondary     #7C3AED  purple-600   accent untuk vape-specific elements
-SecondaryContainer #EDE9FE purple-100
-Tertiary (CTA) #F59E0B amber-500    PRIMARY CTA color (Bayar, Selesaikan)
-TertiaryContainer #FEF3C7 amber-100  CTA card backgrounds
-Background    #FAFAF9  stone-50     warm off-white main bg
-Surface       #FFFFFF              card surface
-SurfaceVariant #F5F5F4  stone-100   subtle card variant
-Error         #DC2626  red-600
-Success       #16A34A  green-600    (custom — bukan Material default)
-OnPrimary     #FFFFFF
-OnSurface     #0F172A
-OnSurfaceVariant #57534E stone-600
+Primary           #1C1917  onyx-900     app bar, headings, body text
+PrimaryContainer  #F5F5F4  onyx-100     subtle container
+OnPrimary         #FAFAF9  cream-50
+
+Secondary         #EAB308  gold-500     accent (chips, highlights)
+SecondaryContainer #FEF3C7 gold-200
+OnSecondary       #0C0A09  onyx-950
+
+Tertiary (CTA)    #CA8A04  gold-600     ★ PRIMARY CTA (Bayar, Selesaikan, Simpan)
+OnTertiary        #0C0A09  onyx-950     ★ BLACK on GOLD — premium retail contrast
+TertiaryContainer #FDE68A  gold-300
+
+Background        #FAFAF9  cream-50     warm off-white main bg
+Surface           #FFFFFF              card surface
+SurfaceVariant    #F5F5F4  cream-100   subtle card variant
+OnSurfaceVariant  #57534E  onyx-600    secondary text
+
+Outline           #A8A29E  onyx-400    visible borders
+OutlineVariant    #E7E5E4  onyx-200    subtle dividers
+
+Error             #DC2626  red-600
+Success           #16A34A  green-600   (custom — not Material default)
 ```
 
-### Dark Mode (optional — beberapa user prefer)
+### Dark Mode (boutique evening use)
+
 ```
-Primary       #F1F5F9  slate-100    inverted
-PrimaryContainer #1E293B slate-800
-Secondary     #A78BFA  purple-400
-Tertiary (CTA) #FBBF24 amber-400   slightly brighter for dark bg
-Background    #0C0A09  stone-950    premium black
-Surface       #1C1917  stone-900
-SurfaceVariant #292524 stone-800
-Error         #F87171  red-400
-OnPrimary     #0F172A
-OnSurface     #FAFAF9
-OnSurfaceVariant #A8A29E stone-400
+Primary           #FAFAF9  cream-50     inverted — headings on dark
+PrimaryContainer  #292524  onyx-800
+
+Secondary         #FACC15  gold-400     brighter for dark surfaces
+Tertiary (CTA)    #EAB308  gold-500     slightly brighter gold for dark
+OnTertiary        #0C0A09  onyx-950
+
+Background        #0C0A09  onyx-950     premium pitch black
+Surface           #1C1917  onyx-900
+SurfaceVariant    #292524  onyx-800
+OnSurfaceVariant  #A8A29E  onyx-400
+
+Outline           #57534E  onyx-600
 ```
 
-## Typography (Google Fonts)
+### Brand-locked elements (theme-independent)
+
+These elements **always** use onyx + gold regardless of system theme — they are brand statements, not Material 3 slots:
+
+- **MetricCard.Primary** (omzet hero card): onyx-900→onyx-950 vertical gradient, GOLD-500 value, royal-gold accent bar
+- **BrandHeader monogram**: onyx-950→onyx-900 gradient circle + royal-gold ring + GOLD-500 "K"
+
+## Brand-only colors (don't map to Material slots)
+
+```
+BrandGoldRoyal   #D4AF37  pure royal gold — hero accents only (monogram ring, accent bars)
+BrandGold500     #EAB308  hero value display (omzet number)
+BrandGold400     #FACC15  highlight, "→" arrows on dark surfaces
+```
+
+Use these sparingly — they're statement pieces. The bulk of the UI should use Material slots (`primary`, `tertiary`, etc.) so theme switching works correctly.
+
+## Typography (Google Fonts via downloadable provider)
 
 | Style | Font | Weight | Size | Usage |
 |---|---|---|---|---|
-| displayLarge | Rubik | 700 | 36sp | Setup wizard hero |
-| displayMedium | Rubik | 700 | 28sp | Section banners |
+| displayLarge | Rubik | 700 (Black via copy) | 36sp | Setup wizard hero |
+| displayMedium | Rubik | 700 (Black via copy on hero) | 28sp | Section banners, omzet value |
 | headlineLarge | Rubik | 700 | 24sp | Screen titles |
-| headlineMedium | Rubik | 600 | 22sp | Card headers |
+| headlineMedium | Rubik | 600 (Bold via copy) | 22sp | Dashboard greeting |
 | titleLarge | Rubik | 600 | 20sp | TopAppBar title |
-| titleMedium | Rubik | 600 | 16sp | List item primary |
-| titleSmall | Rubik | 500 | 14sp | Subheaders |
+| titleMedium | Rubik | 600 (Bold via copy on price) | 16sp | List primary, product price |
+| titleSmall | Rubik | 500 | 14sp | Product name, subheaders |
 | bodyLarge | Inter | 400 | 16sp | Body text default |
 | bodyMedium | Inter | 400 | 14sp | Secondary body |
 | bodySmall | Inter | 400 | 12sp | Caption, metadata |
-| labelLarge | Inter | 600 | 14sp | Button labels |
-| labelMedium | Inter | 500 | 12sp | Chip labels |
+| labelLarge | Inter | 600 | 14sp | Button labels (with letter-spacing 0.5sp) |
+| labelMedium | Inter | 500 | 12sp | Section labels (with letter-spacing 1.5-2sp UPPERCASE) |
+| labelSmall | Inter | 500 | 11sp | Tagline (letter-spacing 2-6sp) |
+
+**Tracking rule**: section labels (UPPERCASE) get +1.5sp letterspacing. Brand wordmark "VAPESTORE" gets +6sp. Never use letterspacing on body copy.
 
 ## Shape Scale
 
@@ -68,76 +102,73 @@ OnSurfaceVariant #A8A29E stone-400
 ExtraSmall  4dp   — chips, badges
 Small       8dp   — small buttons, input fields
 Medium      12dp  — cards (default)
-Large       16dp  — large CTA buttons, dialogs
-ExtraLarge  24dp  — bottom sheets, modals, hero containers
+Large       14dp  — ProductCard
+ExtraLarge  16dp  — StandardCard
+Hero        20dp  — MetricCard.Primary (omzet hero), bottom sheets, modals
 ```
 
-## Elevation (Material 3 inspired)
+## Elevation
 
 ```
-Level 0: 0dp   — flat surfaces
-Level 1: 1dp   — subtle cards
-Level 2: 3dp   — raised cards, app bar scrolled
-Level 3: 6dp   — FAB, important cards
-Level 4: 8dp   — modal sheets, navigation drawer
-Level 5: 12dp  — top-level (rarely used)
+Level 0: 0dp   — flat surfaces (chips, dividers)
+Level 1: 1dp   — subtle cards (StandardCard)
+Level 2: 2dp   — ProductCard
+Level 4: 4dp   — raised modals, FABs
+Level 6: 6dp   — MetricCard.Primary hero — visual weight signature
 ```
 
-## Spacing
+## Component Recipes
 
-8dp grid system:
-```
-xs   4dp
-sm   8dp
-md   16dp  — default content padding
-lg   24dp
-xl   32dp
-xxl  48dp  — section gaps
-```
+### MetricCard.Primary (hero omzet card)
+- Container: `Brush.verticalGradient(BrandOnyx900, BrandOnyx950)`
+- Shape: `RoundedCornerShape(20.dp)`
+- Elevation: `6.dp`
+- Top accent: 3dp × 28dp gold-royal rectangle
+- Label: `labelMedium` UPPERCASE, letterspacing 2sp, `cream-50 alpha 65%`
+- Value: `displayMedium` FontWeight.Black, `BrandGold500`
+- Subtitle: `bodyMedium`, `cream-50 alpha 75%`
+- Embedded CTA: TextButton with gold-400 contentColor + arrow icon
 
-## Branding Elements
+### PrimaryButton (Bayar / Selesaikan / Simpan)
+- Container: `colorScheme.tertiary` = `gold-600`
+- Content: `colorScheme.onTertiary` = `onyx-950` (BLACK on gold)
+- Height: `56.dp`
+- Label: `titleMedium` UPPERCASE
 
-### App Logo Concept
-- **Wordmark**: "KASIR" (Rubik Bold 28sp slate-900) + "VAPESTORE" (Rubik Medium 12sp purple-600 letter-spacing 2sp)
-- **Monogram**: "K" dalam circle dengan gradient slate-900 → purple-600 (untuk icon launcher / hero)
-- **Tagline ringan**: "POS Premium Vape" (Inter Regular 14sp stone-600)
+### BrandHeader monogram
+- Circle: 80dp, `Brush.linearGradient(BrandOnyx950, BrandOnyx900)`
+- Ring: 1.5dp solid `BrandGoldRoyal`
+- "K": Rubik displayLarge 42sp Black, `BrandGold500`
 
-### Brand Touchpoints
-1. **App Launcher Icon**: K monogram dengan vapor swirl detail (TBD via designer)
-2. **Splash Screen**: gradient slate-900 → purple-700 dengan K monogram center
-3. **Setup Wizard Header**: large hero dengan brand name + tagline
-4. **PinLogin**: brand name above PIN dots
-5. **MainScaffold TopAppBar**: subtle wordmark left, gear right
+### ProductCard
+- Shape: `RoundedCornerShape(14.dp)`
+- Elevation: `2.dp`
+- Image placeholder gradient: `surfaceVariant → tertiaryContainer` (subtle cream → light gold)
+- Price: `titleMedium` Bold, `colorScheme.tertiary` = `gold-600` (retail psychology — price POPS)
+- Badges (low stock / out of stock): `errorContainer` / `error` with letterspacing UPPERCASE label
 
-## UX Principles for POS Context
+## Do's and Don'ts
 
-1. **Speed**: tap target minimal 48x48dp (lebih besar dari Material standard 44dp) karena kasir buru-buru
-2. **Visibility**: contrast 7:1 untuk teks penting (lebih ketat dari WCAG AA 4.5:1)
-3. **Forgiving**: aksi destructive (hapus item, batal transaksi) wajib double-confirm
-4. **Idempotency**: tombol "Selesaikan Transaksi" auto-disable saat processing (sudah ada)
-5. **Branding subtle, tidak intrusif**: brand hadir di splash + setup + login, tapi screen kasir harian fokus ke fungsi
+### DO
+- Use Material slots for 90% of color decisions (`primary`, `tertiary`, etc.)
+- Use direct Brand* tokens only for brand-locked elements (hero card, monogram, accent bars)
+- Capitalize section labels with +1.5sp letterspacing
+- Use `tertiary` (gold) for **price** display in product cards
+- Use `tertiary` (gold) for **all primary CTAs** — never `primary` (onyx)
 
-## Anti-patterns (jangan lakukan)
+### DON'T
+- Don't sprinkle `BrandGold*` colors all over the UI — gold is for CTAs and hero accents
+- Don't use bright `BrandGoldRoyal #D4AF37` for body text — it's a hero-only accent
+- Don't re-enable Material You dynamic color — `KasirVapestoreTheme` keeps it off intentionally
+- Don't use gradient on cards other than the hero MetricCard.Primary — keep it special
+- Don't use purple/slate anywhere — those tokens were retired in this rebrand
 
-- ❌ Emoji sebagai icon (pakai Material Icons SVG)
-- ❌ Hard shadows / harsh borders di card
-- ❌ Lebih dari 3 CTA primary di 1 screen
-- ❌ Warna saturasi tinggi di area konten utama (cashier eye strain)
-- ❌ Animasi > 300ms untuk transisi UI (kasir butuh kecepatan)
-- ❌ Card tanpa rounded corners (mood "boutique" hilang)
+## Verification Checklist (before merging UI changes)
 
-## Implementation Checklist
-
-- [ ] Update `theme/Color.kt` dengan palette baru
-- [ ] Update `theme/Type.kt` dengan Rubik + Inter via GoogleFont
-- [ ] Update `theme/Theme.kt` dengan light + dark scheme proper
-- [ ] Tambah `theme/Shape.kt` (Material 3 ShapeScheme custom)
-- [ ] Add dependency: `androidx.compose.ui:ui-text-google-fonts`
-- [ ] Buat `core/ui/components/BrandHeader.kt` (wordmark logo)
-- [ ] Polish SetupWizard dengan brand hero
-- [ ] Polish PinLogin dengan brand wordmark
-- [ ] Polish MainScaffold TopAppBar dengan branding
-- [ ] Polish Dashboard cards dengan gradient subtle + better hierarchy
-- [ ] Polish PosScreen product cards dengan elevation
-- [ ] Polish Checkout summary dengan brand CTA color (amber)
-- [ ] Polish Receipt dengan branded header layout
+- [ ] CTA buttons render gold container with black text
+- [ ] Omzet card on Dashboard shows onyx gradient + gold value + royal-gold accent bar
+- [ ] BrandHeader "K" monogram has visible gold ring on onyx background
+- [ ] Product card price renders in gold (`tertiary`), not onyx (`primary`)
+- [ ] Dark mode: background is deep onyx-950, surfaces onyx-900
+- [ ] No purple/slate tokens left anywhere in `theme/` or component code
+- [ ] WCAG AA contrast holds: gold-600 (CTA bg) + onyx-950 (CTA text) = ~13:1 ✓

@@ -1,7 +1,7 @@
 package com.vapestoreunik.madep.core.ui.components
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -19,10 +19,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.vapestoreunik.madep.theme.BrandGold500
+import com.vapestoreunik.madep.theme.BrandGoldRoyal
+import com.vapestoreunik.madep.theme.BrandOnyx900
+import com.vapestoreunik.madep.theme.BrandOnyx950
 
 /**
- * Brand wordmark + optional monogram. Dipakai di SetupWizard hero, PinLogin header,
- * dan splash bila perlu.
+ * Brand wordmark + monogram "K".
+ *
+ * Visual signature: ONYX → GOLD diagonal gradient on the monogram circle,
+ * thin gold ring outline. Cream "K" stamped in the center. The wordmark
+ * uses onyx for "KASIR" and gold-royal for "VAPESTORE" tracked letterspacing.
  */
 @Composable
 fun BrandHeader(
@@ -37,49 +44,53 @@ fun BrandHeader(
         if (showMonogram) {
             Box(
                 modifier = Modifier
-                    .size(72.dp)
+                    .size(80.dp)
                     .clip(CircleShape)
                     .background(
                         Brush.linearGradient(
-                            colors = listOf(
-                                MaterialTheme.colorScheme.primary,
-                                MaterialTheme.colorScheme.secondary,
-                            ),
+                            colors = listOf(BrandOnyx950, BrandOnyx900),
                         ),
-                    ),
+                    )
+                    .border(width = 1.5.dp, color = BrandGoldRoyal, shape = CircleShape),
                 contentAlignment = Alignment.Center,
             ) {
                 Text(
                     "K",
                     style = MaterialTheme.typography.displayLarge.copy(
-                        fontSize = 36.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontSize = 42.sp,
+                        fontWeight = FontWeight.Black,
                     ),
-                    color = MaterialTheme.colorScheme.onPrimary,
+                    color = BrandGold500,
                 )
             }
-            Spacer(Modifier.height(16.dp))
+            Spacer(Modifier.height(20.dp))
         }
         Text(
             "KASIR",
-            style = MaterialTheme.typography.displayMedium,
+            style = MaterialTheme.typography.displayMedium.copy(
+                fontWeight = FontWeight.Black,
+                letterSpacing = 2.sp,
+            ),
             color = MaterialTheme.colorScheme.primary,
             textAlign = TextAlign.Center,
         )
+        Spacer(Modifier.height(2.dp))
         Text(
-            "VAPESTORE",
+            "V A P E S T O R E",
             style = MaterialTheme.typography.labelMedium.copy(
-                letterSpacing = 4.sp,
-                fontWeight = FontWeight.Medium,
+                letterSpacing = 6.sp,
+                fontWeight = FontWeight.SemiBold,
             ),
-            color = MaterialTheme.colorScheme.secondary,
+            color = BrandGoldRoyal,
             textAlign = TextAlign.Center,
         )
         if (showTagline) {
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(10.dp))
             Text(
-                "POS Premium Vape",
-                style = MaterialTheme.typography.bodySmall,
+                "PREMIUM VAPE BOUTIQUE · POS",
+                style = MaterialTheme.typography.labelSmall.copy(
+                    letterSpacing = 2.sp,
+                ),
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
             )

@@ -7,11 +7,15 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowForward
 import androidx.compose.material.icons.filled.WarningAmber
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -22,11 +26,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.vapestoreunik.madep.core.common.DateFormatter
 import com.vapestoreunik.madep.core.common.RupiahFormatter
+import com.vapestoreunik.madep.core.ui.components.MetricCard
+import com.vapestoreunik.madep.core.ui.components.MetricCardVariant
+import com.vapestoreunik.madep.theme.BrandGold400
 
 @Composable
 fun DashboardScreen(
@@ -43,8 +52,11 @@ fun DashboardScreen(
         item {
             Text(
                 "Halo, ${state.storeName.ifBlank { "Vapestore Unik" }}!",
-                style = MaterialTheme.typography.titleLarge,
+                style = MaterialTheme.typography.headlineMedium.copy(
+                    fontWeight = FontWeight.Bold,
+                ),
             )
+            Spacer(Modifier.height(2.dp))
             Text(
                 DateFormatter.formatDisplay(System.currentTimeMillis()),
                 style = MaterialTheme.typography.bodyMedium,
@@ -52,36 +64,31 @@ fun DashboardScreen(
             )
         }
         item {
-            Card(
-                colors = CardDefaults.cardColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
-                    contentColor = MaterialTheme.colorScheme.onPrimary,
-                ),
-                elevation = CardDefaults.cardElevation(defaultElevation = 4.dp),
+            MetricCard(
+                label = "Omzet Hari Ini",
+                value = RupiahFormatter.format(state.today.omzet),
+                subtitle = "${state.today.transactionCount} transaksi • Rata-rata ${RupiahFormatter.format(state.today.averageTicket)}",
+                variant = MetricCardVariant.Primary,
+                modifier = Modifier.fillMaxWidth(),
             ) {
-                Column(Modifier.padding(20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                TextButton(
+                    onClick = onOpenReports,
+                    colors = ButtonDefaults.textButtonColors(contentColor = BrandGold400),
+                    contentPadding = PaddingValues(0.dp),
+                ) {
                     Text(
-                        "OMZET HARI INI",
-                        style = MaterialTheme.typography.labelMedium,
-                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.7f),
-                    )
-                    Text(
-                        RupiahFormatter.format(state.today.omzet),
-                        style = MaterialTheme.typography.displayMedium,
-                    )
-                    Spacer(Modifier.height(4.dp))
-                    Text(
-                        "${state.today.transactionCount} transaksi • Rata-rata ${RupiahFormatter.format(state.today.averageTicket)}",
-                        style = MaterialTheme.typography.bodyMedium,
-                        color = MaterialTheme.colorScheme.onPrimary.copy(alpha = 0.8f),
-                    )
-                    Spacer(Modifier.height(8.dp))
-                    TextButton(
-                        onClick = onOpenReports,
-                        colors = androidx.compose.material3.ButtonDefaults.textButtonColors(
-                            contentColor = MaterialTheme.colorScheme.tertiary,
+                        "Lihat Laporan Detail",
+                        style = MaterialTheme.typography.labelLarge.copy(
+                            letterSpacing = 0.5.sp,
+                            fontWeight = FontWeight.SemiBold,
                         ),
-                    ) { Text("Lihat Laporan Detail →") }
+                    )
+                    Spacer(Modifier.width(6.dp))
+                    Icon(
+                        Icons.AutoMirrored.Filled.ArrowForward,
+                        contentDescription = null,
+                        modifier = Modifier.size(18.dp),
+                    )
                 }
             }
         }
