@@ -1,9 +1,14 @@
 package com.vapestoreunik.madep.core.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -14,29 +19,27 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vapestoreunik.madep.theme.BrandCream50
-import com.vapestoreunik.madep.theme.BrandGold500
-import com.vapestoreunik.madep.theme.BrandGoldRoyal
-import com.vapestoreunik.madep.theme.BrandOnyx900
-import com.vapestoreunik.madep.theme.BrandOnyx950
+import com.vapestoreunik.madep.theme.BrandAsh
+import com.vapestoreunik.madep.theme.BrandCarbon
+import com.vapestoreunik.madep.theme.BrandJet
+import com.vapestoreunik.madep.theme.BrandSnow
+import com.vapestoreunik.madep.theme.BrandYellow
+import com.vapestoreunik.madep.theme.BrandYellowGlow
 
 enum class MetricCardVariant { Primary, Surface, Tertiary }
 
 /**
- * Card untuk metric/angka penting.
+ * MetricCard — display for important numbers.
  *
  * Variants:
- * - **Primary**: hero card — onyx→onyx950 vertical gradient, GOLD value,
- *   thin gold ring. Brand-locked (independent of light/dark theme) so the
- *   omzet display always looks premium retail.
- * - **Surface**: default white card untuk metric biasa.
- * - **Tertiary**: gold container untuk highlight.
+ * - **Primary** (hero — omzet, period total): 5dp ELECTRIC YELLOW left edge
+ *   stripe, black surface, value at 44sp in YELLOW. Thick visual weight.
+ * - **Surface**: default carbon card, white value.
+ * - **Tertiary**: yellow-tinted container highlight.
  */
 @Composable
 fun MetricCard(
@@ -50,26 +53,16 @@ fun MetricCard(
     when (variant) {
         MetricCardVariant.Primary -> PrimaryHeroCard(label, value, subtitle, content, modifier)
         MetricCardVariant.Surface -> StandardCard(
-            label = label,
-            value = value,
-            subtitle = subtitle,
-            content = content,
-            modifier = modifier,
+            label, value, subtitle, content, modifier,
             containerColor = MaterialTheme.colorScheme.surface,
-            contentColor = MaterialTheme.colorScheme.onSurface,
-            labelColor = MaterialTheme.colorScheme.onSurfaceVariant,
-            elevation = 1.dp,
+            valueColor = BrandSnow,
+            labelColor = BrandAsh,
         )
         MetricCardVariant.Tertiary -> StandardCard(
-            label = label,
-            value = value,
-            subtitle = subtitle,
-            content = content,
-            modifier = modifier,
+            label, value, subtitle, content, modifier,
             containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-            contentColor = MaterialTheme.colorScheme.onTertiaryContainer,
-            labelColor = MaterialTheme.colorScheme.onTertiaryContainer.copy(alpha = 0.8f),
-            elevation = 1.dp,
+            valueColor = BrandJet,
+            labelColor = BrandJet.copy(alpha = 0.7f),
         )
     }
 }
@@ -85,57 +78,49 @@ private fun PrimaryHeroCard(
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(20.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = Color.Transparent,
-            contentColor = BrandCream50,
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = 6.dp),
+        colors = CardDefaults.cardColors(containerColor = BrandJet, contentColor = BrandSnow),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = BorderStroke(1.dp, BrandCarbon),
     ) {
-        Column(
-            modifier = Modifier
-                .background(
-                    Brush.verticalGradient(
-                        colors = listOf(BrandOnyx900, BrandOnyx950),
-                    ),
-                )
-                .padding(24.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-            // Tiny gold accent bar — visual brand signature
-            Spacer(
-                Modifier
-                    .height(3.dp)
-                    .width(28.dp)
-                    .clip(RoundedCornerShape(2.dp))
-                    .background(BrandGoldRoyal),
+        Row(modifier = Modifier.height(IntrinsicSize.Min)) {
+            // 5dp left ELECTRIC YELLOW edge stripe — full height
+            Box(
+                modifier = Modifier
+                    .width(5.dp)
+                    .fillMaxHeight()
+                    .background(BrandYellowGlow),
             )
-            Spacer(Modifier.height(4.dp))
-            Text(
-                text = label.uppercase(),
-                style = MaterialTheme.typography.labelMedium.copy(
-                    letterSpacing = 2.sp,
-                    fontWeight = FontWeight.SemiBold,
-                ),
-                color = BrandCream50.copy(alpha = 0.65f),
-            )
-            Text(
-                text = value,
-                style = MaterialTheme.typography.displayMedium.copy(
-                    fontWeight = FontWeight.Black,
-                ),
-                color = BrandGold500,
-            )
-            subtitle?.let {
-                Spacer(Modifier.height(2.dp))
+            Column(
+                modifier = Modifier.padding(start = 24.dp, end = 24.dp, top = 22.dp, bottom = 22.dp),
+                verticalArrangement = Arrangement.spacedBy(6.dp),
+            ) {
                 Text(
-                    it,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = BrandCream50.copy(alpha = 0.75f),
+                    text = label.uppercase(),
+                    style = MaterialTheme.typography.labelMedium.copy(
+                        letterSpacing = 3.sp,
+                        fontWeight = FontWeight.Bold,
+                    ),
+                    color = BrandAsh,
                 )
-            }
-            content?.let {
-                Spacer(Modifier.height(10.dp))
-                it()
+                Text(
+                    text = value,
+                    style = MaterialTheme.typography.displayMedium.copy(
+                        fontWeight = FontWeight.Black,
+                    ),
+                    color = BrandYellow,
+                )
+                subtitle?.let {
+                    Spacer(Modifier.height(2.dp))
+                    Text(
+                        it,
+                        style = MaterialTheme.typography.bodyMedium,
+                        color = BrandSnow.copy(alpha = 0.75f),
+                    )
+                }
+                content?.let {
+                    Spacer(Modifier.height(12.dp))
+                    it()
+                }
             }
         }
     }
@@ -149,18 +134,15 @@ private fun StandardCard(
     content: @Composable (() -> Unit)?,
     modifier: Modifier,
     containerColor: Color,
-    contentColor: Color,
+    valueColor: Color,
     labelColor: Color,
-    elevation: androidx.compose.ui.unit.Dp,
 ) {
     Card(
         modifier = modifier,
         shape = RoundedCornerShape(16.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = containerColor,
-            contentColor = contentColor,
-        ),
-        elevation = CardDefaults.cardElevation(defaultElevation = elevation),
+        colors = CardDefaults.cardColors(containerColor = containerColor, contentColor = BrandSnow),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        border = BorderStroke(1.dp, MaterialTheme.colorScheme.outlineVariant),
     ) {
         Column(
             modifier = Modifier.padding(20.dp),
@@ -169,22 +151,19 @@ private fun StandardCard(
             Text(
                 text = label.uppercase(),
                 style = MaterialTheme.typography.labelMedium.copy(
-                    letterSpacing = 1.5.sp,
+                    letterSpacing = 2.sp,
                     fontWeight = FontWeight.SemiBold,
                 ),
                 color = labelColor,
             )
             Text(
                 text = value,
-                style = MaterialTheme.typography.displayMedium,
+                style = MaterialTheme.typography.displaySmall.copy(fontWeight = FontWeight.Black),
+                color = valueColor,
             )
             subtitle?.let {
-                Spacer(Modifier.height(4.dp))
-                Text(
-                    it,
-                    style = MaterialTheme.typography.bodyMedium,
-                    color = labelColor,
-                )
+                Spacer(Modifier.height(2.dp))
+                Text(it, style = MaterialTheme.typography.bodyMedium, color = labelColor)
             }
             content?.let {
                 Spacer(Modifier.height(8.dp))

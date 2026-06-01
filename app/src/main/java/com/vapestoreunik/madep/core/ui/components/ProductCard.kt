@@ -1,5 +1,6 @@
 package com.vapestoreunik.madep.core.ui.components
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -23,20 +24,26 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.vapestoreunik.madep.core.common.RupiahFormatter
+import com.vapestoreunik.madep.theme.BrandAsh
+import com.vapestoreunik.madep.theme.BrandCarbon
+import com.vapestoreunik.madep.theme.BrandIron
+import com.vapestoreunik.madep.theme.BrandJet
+import com.vapestoreunik.madep.theme.BrandRed
+import com.vapestoreunik.madep.theme.BrandSnow
+import com.vapestoreunik.madep.theme.BrandYellow
 
 /**
- * Card produk dengan:
- * - placeholder image (gradient + icon) — siap kalau imageUri ditambah di Tier B
- * - nama produk (titleSmall, max 2 lines)
- * - brand kecil (bodySmall, onSurfaceVariant)
- * - harga prominent (titleMedium, color tertiary/amber kalau ada)
- * - badge stok rendah (kalau low)
- * - hint "Tap untuk tambah" / "Pilih varian" kalau dipakai di POS
+ * ProductCard — black thumbnail + YELLOW PRICE CHIP overlay.
+ *
+ * Treatment:
+ * - Dark thumbnail (BrandIron) with a faint yellow corner triangle accent
+ *   — like a streetwear hangtag
+ * - YELLOW price chip (rounded badge, yellow bg + black text) instead of plain text
+ * - Bold name, asher brand line
+ * - Out-of-stock: thumbnail dimmed + red strip overlay
  */
 @Composable
 fun ProductCard(
@@ -53,100 +60,114 @@ fun ProductCard(
         onClick = onClick,
         modifier = modifier,
         enabled = !outOfStock,
-        elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
-        shape = RoundedCornerShape(14.dp),
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
+        shape = RoundedCornerShape(16.dp),
+        colors = CardDefaults.cardColors(containerColor = BrandCarbon, contentColor = BrandSnow),
+        border = BorderStroke(1.dp, BrandIron),
     ) {
         Column {
+            // ── Thumbnail: dark slab with a small yellow corner ─────────────
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .aspectRatio(1.6f)
-                    .background(
-                        Brush.linearGradient(
-                            colors = listOf(
-                                MaterialTheme.colorScheme.surfaceVariant,
-                                MaterialTheme.colorScheme.tertiaryContainer,
-                            ),
-                        ),
-                    ),
+                    .background(BrandIron),
                 contentAlignment = Alignment.Center,
             ) {
+                // Yellow corner triangle accent (top-right)
+                Box(
+                    modifier = Modifier
+                        .align(Alignment.TopEnd)
+                        .padding(10.dp)
+                        .size(width = 28.dp, height = 4.dp)
+                        .clip(RoundedCornerShape(2.dp))
+                        .background(BrandYellow),
+                )
                 Icon(
                     Icons.Default.LocalMall,
                     contentDescription = null,
                     modifier = Modifier.size(44.dp),
-                    tint = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.55f),
+                    tint = BrandAsh.copy(alpha = 0.45f),
                 )
                 if (outOfStock) {
                     Box(
                         modifier = Modifier
                             .fillMaxWidth()
                             .height(28.dp)
-                            .background(MaterialTheme.colorScheme.error.copy(alpha = 0.9f)),
+                            .background(BrandRed.copy(alpha = 0.92f))
+                            .align(Alignment.BottomCenter),
                         contentAlignment = Alignment.Center,
                     ) {
                         Text(
-                            "HABIS",
+                            "H A B I S",
                             style = MaterialTheme.typography.labelSmall.copy(
-                                letterSpacing = 1.5.sp,
-                                fontWeight = FontWeight.Bold,
+                                letterSpacing = 4.sp,
+                                fontWeight = FontWeight.Black,
                             ),
-                            color = MaterialTheme.colorScheme.onError,
+                            color = BrandSnow,
                         )
                     }
                 } else if (lowStock) {
                     Box(
                         modifier = Modifier
-                            .padding(8.dp)
-                            .background(
-                                MaterialTheme.colorScheme.errorContainer,
-                                RoundedCornerShape(4.dp),
-                            )
-                            .padding(horizontal = 6.dp, vertical = 2.dp)
+                            .padding(10.dp)
+                            .background(BrandRed.copy(alpha = 0.15f), RoundedCornerShape(4.dp))
+                            .padding(horizontal = 6.dp, vertical = 3.dp)
                             .align(Alignment.TopStart),
                     ) {
                         Text(
                             "STOK RENDAH",
                             style = MaterialTheme.typography.labelSmall.copy(
                                 fontSize = 9.sp,
-                                letterSpacing = 0.5.sp,
-                                fontWeight = FontWeight.SemiBold,
+                                letterSpacing = 1.sp,
+                                fontWeight = FontWeight.Bold,
                             ),
-                            color = MaterialTheme.colorScheme.onErrorContainer,
+                            color = BrandRed,
                         )
                     }
                 }
             }
+            // ── Text block ──────────────────────────────────────────────────
             Column(
-                modifier = Modifier.padding(12.dp),
-                verticalArrangement = Arrangement.spacedBy(2.dp),
+                modifier = Modifier.padding(14.dp),
+                verticalArrangement = Arrangement.spacedBy(4.dp),
             ) {
                 Text(
                     name,
-                    style = MaterialTheme.typography.titleSmall,
+                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.Bold),
                     maxLines = 2,
-                    color = MaterialTheme.colorScheme.onSurface,
+                    color = BrandSnow,
                 )
                 brand?.let {
                     Text(
-                        it,
-                        style = MaterialTheme.typography.bodySmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        it.uppercase(),
+                        style = MaterialTheme.typography.labelSmall.copy(letterSpacing = 1.2.sp),
+                        color = BrandAsh,
                     )
                 }
-                Spacer(Modifier.height(6.dp))
-                Text(
-                    priceLabel,
-                    style = MaterialTheme.typography.titleMedium.copy(
-                        fontWeight = FontWeight.Bold,
-                    ),
-                    color = MaterialTheme.colorScheme.tertiary,
-                )
+                Spacer(Modifier.height(8.dp))
+                // ── YELLOW PRICE CHIP — the punchline of the card ───────────
+                Box(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(8.dp))
+                        .background(BrandYellow)
+                        .padding(horizontal = 10.dp, vertical = 5.dp),
+                ) {
+                    Text(
+                        priceLabel,
+                        style = MaterialTheme.typography.titleSmall.copy(
+                            fontWeight = FontWeight.Black,
+                            letterSpacing = 0.2.sp,
+                        ),
+                        color = BrandJet,
+                    )
+                }
                 hint?.let {
+                    Spacer(Modifier.height(2.dp))
                     Text(
                         it,
                         style = MaterialTheme.typography.labelSmall,
-                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        color = BrandAsh,
                     )
                 }
             }

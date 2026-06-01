@@ -1,174 +1,183 @@
 # Kasir Vapestore — Brand Master
 
-> **Source of truth** untuk semua design decisions. Page-specific overrides di `pages/<name>.md`.
+> **BLACKOUT YELLOW** — source of truth. Page-specific overrides di `pages/<name>.md`.
 
 ## Brand Identity
 
-**Tagline (internal)**: "Black on gold — premium vape boutique POS"
+**Tagline (internal)**: "Pure black + electric yellow. Vape culture, not jewelry counter."
 
-**Positioning**: Bukan POS generik. Aplikasi kasir untuk toko vape premium di Indonesia. Vibe: Rolex × Hublot × streetwear-luxe — onyx pekat, aksen emas, kerja diam-diam mahal.
+**Positioning**: POS untuk toko vape modern Indonesia. Vibe: streetwear-luxe × hypebeast × cyberpunk-premium. Bukan butik perhiasan, bukan klinik, bukan supermarket. Dipakai 8 jam non-stop tanpa kasir kelelahan secara visual karena canvas pekat dan aksen kuning hanya di titik perlu.
 
-**Personality**: bold, premium, minimalis, sedikit edgy. Bukan klinik, bukan supermarket, bukan toko serba ada. Kasir merasa sedang menjalankan butik perhiasan.
+**Personality**: bold, electric, punchy, streetwear-luxe. Identity dipisah jelas dari aplikasi cashier generik.
 
-**Visual signature**: lingkaran onyx dengan ring emas + huruf "K" emas di tengah. Wordmark "KASIR" hitam tebal, "V A P E S T O R E" emas dengan letterspacing lebar.
+**Visual signature**:
+- Monogram lingkaran 100dp HITAM dengan ring KUNING ELECTRIC 3dp + huruf "K" kuning 56sp Black weight
+- Wordmark "KASIR" putih Black, accent rule 48×2dp KUNING di antara, "V A P E S T O R E" kuning letterspaced 8sp
+- 5dp left-edge YELLOW STRIPE pada hero MetricCard (signature non-negotiable)
+- PrimaryButton = YELLOW PILL CAPSULE 60dp tinggi, teks HITAM UPPERCASE BLACK weight
 
-## Color Palette
-
-### Light Mode (default — cashier daytime)
-
-```
-Primary           #1C1917  onyx-900     app bar, headings, body text
-PrimaryContainer  #F5F5F4  onyx-100     subtle container
-OnPrimary         #FAFAF9  cream-50
-
-Secondary         #EAB308  gold-500     accent (chips, highlights)
-SecondaryContainer #FEF3C7 gold-200
-OnSecondary       #0C0A09  onyx-950
-
-Tertiary (CTA)    #CA8A04  gold-600     ★ PRIMARY CTA (Bayar, Selesaikan, Simpan)
-OnTertiary        #0C0A09  onyx-950     ★ BLACK on GOLD — premium retail contrast
-TertiaryContainer #FDE68A  gold-300
-
-Background        #FAFAF9  cream-50     warm off-white main bg
-Surface           #FFFFFF              card surface
-SurfaceVariant    #F5F5F4  cream-100   subtle card variant
-OnSurfaceVariant  #57534E  onyx-600    secondary text
-
-Outline           #A8A29E  onyx-400    visible borders
-OutlineVariant    #E7E5E4  onyx-200    subtle dividers
-
-Error             #DC2626  red-600
-Success           #16A34A  green-600   (custom — not Material default)
-```
-
-### Dark Mode (boutique evening use)
+## Color Palette (single brand-locked scheme)
 
 ```
-Primary           #FAFAF9  cream-50     inverted — headings on dark
-PrimaryContainer  #292524  onyx-800
+─── BLACK SCALE (canvas + surfaces + text) ────────────────────────
+BrandBlack       #000000  pure — accent strokes only
+BrandJet         #0A0A0A  ★ main background — near-black warm
+BrandCarbon      #141414  ★ card surface
+BrandSlate       #1F1F1F  raised surface (FAB, dialog)
+BrandIron        #2A2A2A  hover/press, subtle dividers
+BrandSteel       #404040  visible outlines
+BrandSmoke       #71717A  muted/helper text
+BrandAsh         #A1A1AA  secondary text
+BrandSnow        #FAFAFA  ★ primary text on dark
 
-Secondary         #FACC15  gold-400     brighter for dark surfaces
-Tertiary (CTA)    #EAB308  gold-500     slightly brighter gold for dark
-OnTertiary        #0C0A09  onyx-950
+─── ELECTRIC YELLOW (THE brand color) ─────────────────────────────
+BrandYellow      #FACC15  ★ PRIMARY BRAND — buttons, hero numbers, accents
+BrandYellowHi    #FDE047  highlight / hover
+BrandYellowDeep  #EAB308  pressed / active
+BrandYellowGlow  #FFFB47  ultra-bright — thin strokes, edge stripes
+BrandYellowDim   #713F12  muted yellow container (rare)
 
-Background        #0C0A09  onyx-950     premium pitch black
-Surface           #1C1917  onyx-900
-SurfaceVariant    #292524  onyx-800
-OnSurfaceVariant  #A8A29E  onyx-400
-
-Outline           #57534E  onyx-600
+─── STATUS ────────────────────────────────────────────────────────
+BrandRed         #EF4444  error
+BrandRedDim      #7F1D1D  error container
+BrandGreen       #22C55E  success
+BrandGreenDim    #14532D  success container
 ```
 
-### Brand-locked elements (theme-independent)
-
-These elements **always** use onyx + gold regardless of system theme — they are brand statements, not Material 3 slots:
-
-- **MetricCard.Primary** (omzet hero card): onyx-900→onyx-950 vertical gradient, GOLD-500 value, royal-gold accent bar
-- **BrandHeader monogram**: onyx-950→onyx-900 gradient circle + royal-gold ring + GOLD-500 "K"
-
-## Brand-only colors (don't map to Material slots)
+## Material 3 Slot Mapping
 
 ```
-BrandGoldRoyal   #D4AF37  pure royal gold — hero accents only (monogram ring, accent bars)
-BrandGold500     #EAB308  hero value display (omzet number)
-BrandGold400     #FACC15  highlight, "→" arrows on dark surfaces
+background       = BrandJet (#0A0A0A)        the canvas
+surface          = BrandCarbon (#141414)     cards
+surfaceVariant   = BrandSlate (#1F1F1F)      raised cards
+
+primary          = BrandYellow (#FACC15)     ★ brand color — headings, key accents
+onPrimary        = BrandJet (#0A0A0A)        ★ BLACK on YELLOW (max contrast)
+primaryContainer = BrandYellowDim
+onPrimaryContainer = BrandYellowHi
+
+tertiary         = BrandYellow               ★ ALL primary CTAs (same yellow)
+onTertiary       = BrandJet                  black text on yellow buttons
+
+outline          = BrandSteel
+outlineVariant   = BrandIron
+
+error            = BrandRed
 ```
 
-Use these sparingly — they're statement pieces. The bulk of the UI should use Material slots (`primary`, `tertiary`, etc.) so theme switching works correctly.
+**Light/dark system setting is IGNORED**. The app always renders blackout. Light mode would dilute the identity — `KasirVapestoreTheme` accepts a `darkTheme` parameter but discards it.
 
-## Typography (Google Fonts via downloadable provider)
+## Typography
 
-| Style | Font | Weight | Size | Usage |
-|---|---|---|---|---|
-| displayLarge | Rubik | 700 (Black via copy) | 36sp | Setup wizard hero |
-| displayMedium | Rubik | 700 (Black via copy on hero) | 28sp | Section banners, omzet value |
-| headlineLarge | Rubik | 700 | 24sp | Screen titles |
-| headlineMedium | Rubik | 600 (Bold via copy) | 22sp | Dashboard greeting |
-| titleLarge | Rubik | 600 | 20sp | TopAppBar title |
-| titleMedium | Rubik | 600 (Bold via copy on price) | 16sp | List primary, product price |
-| titleSmall | Rubik | 500 | 14sp | Product name, subheaders |
-| bodyLarge | Inter | 400 | 16sp | Body text default |
-| bodyMedium | Inter | 400 | 14sp | Secondary body |
-| bodySmall | Inter | 400 | 12sp | Caption, metadata |
-| labelLarge | Inter | 600 | 14sp | Button labels (with letter-spacing 0.5sp) |
-| labelMedium | Inter | 500 | 12sp | Section labels (with letter-spacing 1.5-2sp UPPERCASE) |
-| labelSmall | Inter | 500 | 11sp | Tagline (letter-spacing 2-6sp) |
+Display weights are **+33% bigger** than Material 3 defaults. UPPERCASE labels track wider (2.5–3sp) for "nightclub signage" feel.
 
-**Tracking rule**: section labels (UPPERCASE) get +1.5sp letterspacing. Brand wordmark "VAPESTORE" gets +6sp. Never use letterspacing on body copy.
+| Style | Font | Weight | Size | Letterspace | Usage |
+|---|---|---|---|---|---|
+| displayLarge | Rubik Black | 900 | 56sp | -1.5sp | Splash hero |
+| displayMedium | Rubik Black | 900 | 44sp | -1sp | Omzet hero number |
+| displaySmall | Rubik Bold | 700 | 32sp | -0.5sp | Surface card big numbers |
+| headlineLarge | Rubik Black | 900 | 28sp | -0.5sp | Dashboard greeting |
+| headlineMedium | Rubik Bold | 700 | 24sp | — | Step titles |
+| titleLarge | Rubik Bold | 700 | 20sp | — | App bar |
+| titleMedium | Rubik SemiBold | 600 | 16sp | 0.15sp | List primary, price |
+| titleSmall | Rubik Medium | 500 | 14sp | 0.1sp | Product name |
+| bodyLarge | Inter | 400 | 16sp | 0.3sp | Body |
+| bodyMedium | Inter | 400 | 14sp | 0.25sp | Secondary body |
+| bodySmall | Inter | 400 | 12sp | 0.4sp | Captions |
+| labelLarge | Inter Bold | 700 | 14sp | 1.2sp | Button labels (UPPERCASE) |
+| labelMedium | Inter SemiBold | 600 | 12sp | 2sp | Section labels (UPPERCASE) |
+| labelSmall | Inter SemiBold | 600 | 11sp | 2sp | Step indicator, tagline |
 
 ## Shape Scale
 
 ```
-ExtraSmall  4dp   — chips, badges
-Small       8dp   — small buttons, input fields
-Medium      12dp  — cards (default)
-Large       14dp  — ProductCard
-ExtraLarge  16dp  — StandardCard
-Hero        20dp  — MetricCard.Primary (omzet hero), bottom sheets, modals
+extraSmall  6dp   — badges, small chips
+small       10dp  — input fields
+medium      14dp  — ProductCard
+large       20dp  — MetricCard.Primary (hero)
+extraLarge  28dp  — bottom sheets, dialogs
+
+PillShape   50%   — PrimaryButton, SecondaryButton (capsule)
 ```
 
-## Elevation
+## Elevation Strategy
 
-```
-Level 0: 0dp   — flat surfaces (chips, dividers)
-Level 1: 1dp   — subtle cards (StandardCard)
-Level 2: 2dp   — ProductCard
-Level 4: 4dp   — raised modals, FABs
-Level 6: 6dp   — MetricCard.Primary hero — visual weight signature
-```
+Most cards use **0dp elevation** + **1dp border** (BrandIron or outlineVariant) instead of Material shadows. Shadows look weird on pure black backgrounds. Borders define separation cleanly.
+
+The exception is interactive press states — Compose handles those via state-layer ripple.
 
 ## Component Recipes
 
-### MetricCard.Primary (hero omzet card)
-- Container: `Brush.verticalGradient(BrandOnyx900, BrandOnyx950)`
-- Shape: `RoundedCornerShape(20.dp)`
-- Elevation: `6.dp`
-- Top accent: 3dp × 28dp gold-royal rectangle
-- Label: `labelMedium` UPPERCASE, letterspacing 2sp, `cream-50 alpha 65%`
-- Value: `displayMedium` FontWeight.Black, `BrandGold500`
-- Subtitle: `bodyMedium`, `cream-50 alpha 75%`
-- Embedded CTA: TextButton with gold-400 contentColor + arrow icon
+### MetricCard.Primary (hero)
+- Shape `RoundedCornerShape(20.dp)`, border 1dp `BrandCarbon`
+- **5dp left ELECTRIC YELLOW edge stripe** (full card height, `BrandYellowGlow`)
+- Label `labelMedium` UPPERCASE, letterspace 3sp, `BrandAsh`
+- Value `displayMedium` Black weight, **`BrandYellow`** ★
+- Subtitle `bodyMedium`, snow 75% alpha
+- Padding 22dp vertical, 24dp horizontal
 
 ### PrimaryButton (Bayar / Selesaikan / Simpan)
-- Container: `colorScheme.tertiary` = `gold-600`
-- Content: `colorScheme.onTertiary` = `onyx-950` (BLACK on gold)
-- Height: `56.dp`
-- Label: `titleMedium` UPPERCASE
+- Shape `PillShape` (capsule)
+- Container `BrandYellow`, content `BrandJet`
+- Height **60dp** (was 56dp — bigger for kasir's busy fingers)
+- Label `titleMedium` Black weight UPPERCASE, letterspace 1.5sp
 
-### BrandHeader monogram
-- Circle: 80dp, `Brush.linearGradient(BrandOnyx950, BrandOnyx900)`
-- Ring: 1.5dp solid `BrandGoldRoyal`
-- "K": Rubik displayLarge 42sp Black, `BrandGold500`
+### SecondaryButton
+- Shape `PillShape`
+- 1.5dp border `BrandYellow`, content `BrandYellow`
+- Height 52dp
 
 ### ProductCard
-- Shape: `RoundedCornerShape(14.dp)`
-- Elevation: `2.dp`
-- Image placeholder gradient: `surfaceVariant → tertiaryContainer` (subtle cream → light gold)
-- Price: `titleMedium` Bold, `colorScheme.tertiary` = `gold-600` (retail psychology — price POPS)
-- Badges (low stock / out of stock): `errorContainer` / `error` with letterspacing UPPERCASE label
+- Shape `RoundedCornerShape(16.dp)`, border 1dp `BrandIron`, no elevation
+- Container `BrandCarbon`
+- Thumbnail: `BrandIron` slab, 28×4dp yellow corner accent (top-right) — like a streetwear hangtag
+- **Price is a YELLOW CHIP** — `BrandYellow` background, rounded 8dp, `BrandJet` Black weight text inside
+- Brand line UPPERCASE letterspace 1.2sp `BrandAsh`
+- Out-of-stock: bottom red strip with "H A B I S" letterspaced 4sp
+
+### BrandHeader monogram
+- 100dp circle, radial gradient `BrandJet → BrandBlack` fill
+- 3dp `BrandYellow` border ring
+- "K" inside: Rubik 56sp Black weight, `BrandYellow`
+- Wordmark "KASIR" 44sp Black `BrandSnow`
+- 48×2dp accent rule `BrandYellowGlow`
+- "V A P E S T O R E" Inter Bold 14sp letterspace 8sp, `BrandYellow`
+
+### SectionHeader
+- 4dp × 18dp yellow vertical bar (`BrandYellow`) at left
+- 10dp gap
+- Title UPPERCASE labelMedium letterspace 2.5sp
+- Optional trailing yellow TextButton action
+
+### PIN dots (PinLoginScreen)
+- 20dp circle, 2dp border
+- Empty: bg `BrandJet`, border `BrandIron`
+- Filled: bg `BrandYellow`, border `BrandYellow`
+- 14dp gap between dots
 
 ## Do's and Don'ts
 
 ### DO
-- Use Material slots for 90% of color decisions (`primary`, `tertiary`, etc.)
-- Use direct Brand* tokens only for brand-locked elements (hero card, monogram, accent bars)
-- Capitalize section labels with +1.5sp letterspacing
-- Use `tertiary` (gold) for **price** display in product cards
-- Use `tertiary` (gold) for **all primary CTAs** — never `primary` (onyx)
+- Use **YELLOW liberally** for accents (chips, dots, bars, hero values, prices) — it IS the brand
+- Use **PrimaryButton (pill yellow)** for every "this is the primary action" CTA
+- Use **0dp elevation + border** for cards
+- Use UPPERCASE labels with 2–3sp tracking for section headers
+- Test that hero numbers (omzet, prices) feel "louder" than surrounding UI
 
 ### DON'T
-- Don't sprinkle `BrandGold*` colors all over the UI — gold is for CTAs and hero accents
-- Don't use bright `BrandGoldRoyal #D4AF37` for body text — it's a hero-only accent
-- Don't re-enable Material You dynamic color — `KasirVapestoreTheme` keeps it off intentionally
-- Don't use gradient on cards other than the hero MetricCard.Primary — keep it special
-- Don't use purple/slate anywhere — those tokens were retired in this rebrand
+- Don't re-add cream/white as a background — that was the old palette
+- Don't re-enable system dark/light switching — brand-locked is intentional
+- Don't use Material shadows on cards (use borders instead)
+- Don't dilute yellow with low alphas everywhere — keep it crisp at 100% where used
+- Don't introduce purple/slate/amber-gold tokens — those palettes are retired
 
 ## Verification Checklist (before merging UI changes)
 
-- [ ] CTA buttons render gold container with black text
-- [ ] Omzet card on Dashboard shows onyx gradient + gold value + royal-gold accent bar
-- [ ] BrandHeader "K" monogram has visible gold ring on onyx background
-- [ ] Product card price renders in gold (`tertiary`), not onyx (`primary`)
-- [ ] Dark mode: background is deep onyx-950, surfaces onyx-900
-- [ ] No purple/slate tokens left anywhere in `theme/` or component code
-- [ ] WCAG AA contrast holds: gold-600 (CTA bg) + onyx-950 (CTA text) = ~13:1 ✓
+- [ ] App canvas is BLACK (not cream/white)
+- [ ] Primary CTA buttons are YELLOW PILL CAPSULES with BLACK text
+- [ ] Dashboard omzet card shows 5dp yellow left edge + value in yellow
+- [ ] Product price renders as a YELLOW CHIP, not plain text
+- [ ] PIN dots: hollow yellow→solid yellow as digits entered
+- [ ] BrandHeader: black monogram circle with visible thick yellow ring
+- [ ] No purple/slate/amber-gold tokens anywhere in `theme/` or component code
+- [ ] WCAG AA holds: yellow (#FACC15) on black (#0A0A0A) = ~14.7:1 ✓

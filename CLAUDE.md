@@ -109,18 +109,25 @@ If you add another multi-table write path, follow the same pattern — inject `T
 
 ### Theme / brand lock
 
-Brand identity is **Onyx + Gold** (premium vape boutique). Material You **dynamic color is intentionally disabled** in `KasirVapestoreTheme` so brand colors stay consistent across all phones. Full palette + recipes in `design-system/MASTER.md`.
+Brand identity is **Blackout Yellow** — pure black canvas with electric yellow (`#FACC15`) as THE brand color. Full palette + recipes in `design-system/MASTER.md`.
 
-Material 3 slot mapping to remember:
-- `primary` = onyx-900 (`#1C1917`) — app bars, headings, body text
-- `tertiary` = gold-600 (`#CA8A04`) — **all primary CTAs** (Bayar, Selesaikan, Simpan). `onTertiary` = onyx-950, giving black-on-gold contrast.
-- `secondary` = gold-500 — accents, chips, secondary highlights
+**`KasirVapestoreTheme` always renders blackout** — the `darkTheme` parameter is silently discarded. There is **one color scheme**, not two. Light mode would dilute the identity.
 
-Two elements are **brand-locked** (theme-independent, use direct `Brand*` tokens, not Material slots) and should stay that way:
-- `MetricCard.Primary` (omzet hero) — onyx gradient + gold value + royal-gold accent bar
-- `BrandHeader` monogram circle — onyx gradient with gold ring + gold "K"
+Material 3 slot mapping:
+- `primary` = `BrandYellow` (`#FACC15`) — THE brand color
+- `tertiary` = `BrandYellow` — **all primary CTAs**, with `onTertiary` = `BrandJet` giving black-on-yellow contrast
+- `background` = `BrandJet` (`#0A0A0A`) — the canvas
+- `surface` = `BrandCarbon` (`#141414`) — cards
 
-When adding screens, reach for components from `core/ui/components/` (`MetricCard`, `ProductCard`, `SectionHeader`, `PrimaryButton`, `SecondaryButton`, `BrandHeader`) before falling back to raw Material 3 — they encode the brand spacing/typography/elevation choices. Use `tertiary` (gold) — not `primary` (onyx) — for product price labels: it's a deliberate retail-psychology choice.
+**Cards prefer 0dp elevation + 1dp border** (`BrandIron` or `outlineVariant`) over Material shadows. Shadows look bad on pure black.
+
+When adding screens, reach for components from `core/ui/components/` (`MetricCard`, `ProductCard`, `SectionHeader`, `PrimaryButton`, `SecondaryButton`, `BrandHeader`) — they encode the brand language:
+- **PrimaryButton** is a yellow PILL capsule 60dp with black text (not a Material rectangle)
+- **MetricCard.Primary** has a non-negotiable **5dp left yellow edge stripe** + yellow value
+- **ProductCard** price is a **yellow chip**, not plain colored text
+- **SectionHeader** has a 4×18dp yellow vertical bar to the left of the label
+
+Brand-locked elements use direct `Brand*` tokens (not Material slots) — they should stay that way: `MetricCard.Primary` hero, `BrandHeader` monogram, `PinLoginScreen` PIN dots.
 
 Typography uses Google Fonts at runtime (Rubik for display/headings, Inter for body). The `font_certs.xml` resource holds the GMS provider certs needed for downloadable fonts.
 
